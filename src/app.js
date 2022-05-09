@@ -8,7 +8,6 @@ import "./styles/app.css";
 function App() {
   // Use initialEmails for state
   const [emails, setEmails] = useState(initialEmails);
-  console.log(initialEmails);
 
   const checkedEmails = (clickedEmails) => {
     const readEmails = emails.map((e) => {
@@ -22,6 +21,11 @@ function App() {
 
   const uncheckedEmails = () => {
     const unreadEmails = emails.filter((e) => !e.read);
+    return unreadEmails.length;
+  };
+
+  const starredEmails = () => {
+    const unreadEmails = emails.filter((e) => !e.starred);
     return unreadEmails.length;
   };
 
@@ -42,7 +46,7 @@ function App() {
             // onClick={() => {}}
           >
             <span className="label">Starred</span>
-            <span className="count">?</span>
+            <span className="count">{starredEmails()}</span>
           </li>
 
           <li className="item toggle">
@@ -60,13 +64,10 @@ function App() {
         <ul>
           {emails.map((e) => {
             return (
-              <li
-                className={e.read ? "Email opened" : "Email unopened"}
-                key={e.id}
-              >
-                <div className="checkbox-emails">
+              <li className="email">
+                <div className="select">
                   <input
-                    className="checkbox"
+                    className="select-checkbox"
                     type="checkbox"
                     onClick={() => checkedEmails(e)}
                   />
