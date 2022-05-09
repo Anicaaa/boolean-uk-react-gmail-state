@@ -20,6 +20,11 @@ function App() {
     setEmails(readEmails);
   };
 
+  const uncheckedEmails = () => {
+    const unreadEmails = emails.filter((e) => !e.read);
+    return unreadEmails.length;
+  };
+
   return (
     <div className="app">
       <Header />
@@ -30,7 +35,7 @@ function App() {
             // onClick={() => {}}
           >
             <span className="label">Inbox</span>
-            <span className="count">?</span>
+            <span className="count">{uncheckedEmails()}</span>
           </li>
           <li
             className="item"
@@ -66,6 +71,11 @@ function App() {
                     onClick={() => checkedEmails(e)}
                   />
                 </div>
+                <div className="star">
+                  <input className="star-checkbox" type="checkbox" />
+                </div>
+                <div className="sender">{e.sender}</div>
+                <div className="title">{e.title}</div>
               </li>
             );
           })}
